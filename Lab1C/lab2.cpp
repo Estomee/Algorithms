@@ -7,14 +7,14 @@ void task(Stack* stack)
     int acc = 0;
     int temp1;
     int temp2;
-    bool sign = false;
+    bool sign = false; //Обозначает, что предыдущий символ был знаком +,-,*,/ (cм. 66 строчку кода)
     char c=0;
     while ( c!='\n')
     {
      
         cin.get(c);
         
-        if (c == '*')
+        if (c == '*') //Обработка умножения 
         {
             temp1 = stack_get(stack);
             stack_pop(stack);
@@ -25,7 +25,7 @@ void task(Stack* stack)
 
 
         }
-        else if (c == '+')
+        else if (c == '+')    //Обработка сложения
         {
             temp1 = stack_get(stack);
             stack_pop(stack);
@@ -34,7 +34,7 @@ void task(Stack* stack)
             stack_push(stack, temp2);
             sign = true;
         }
-        else if (c == '-')
+        else if (c == '-')  //Обработка вычитания
         {
             temp1 = stack_get(stack);
             stack_pop(stack);
@@ -43,8 +43,8 @@ void task(Stack* stack)
             stack_push(stack, temp2);
             sign = true;
         }
-        else if (c == '/')
-        {
+        else if (c == '/')  //Обработка деления
+        { 
             temp1 = stack_get(stack);
             stack_pop(stack);
             temp2 = stack_get(stack) / temp1;
@@ -52,7 +52,7 @@ void task(Stack* stack)
             stack_push(stack, temp2);
             sign = true;
         }
-        else  if (c == '\n')
+        else  if (c == '\n')   
         {
             if (sign == true)
             {
@@ -63,20 +63,20 @@ void task(Stack* stack)
             break;
 
         }
-        else   if (c == ' ')
+        else   if (c == ' ')    //Проверяем разделитель строки (пробел)
         {
-            if (sign == true)
+            if (sign == true)   //Если предыдущий символ был знаком, то проходим на следующую итерацию считывания 
             {
                 sign = false;
                 continue;
             }
-            stack_push(stack, acc);
+            stack_push(stack, acc); //Иначе записываем в стек число для операции 
             acc = 0;
             continue;
         }
         else
         {
-            acc = acc * 10 + c - '0';
+            acc = acc * 10 + c - '0';  //Преобразование строчного представления числа в целочисленное 
 
         }
     }
